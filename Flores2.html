@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flores Amarillas para Ti</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(to bottom, #fff8e1, #ffecb3);
+            color: #5d4037;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: rgba(255, 235, 59, 0.2);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #f57f17;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-family: 'Dancing Script', cursive;
+            animation: fadeIn 2s ease;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-style: italic;
+            animation: fadeIn 3s ease;
+        }
+
+        .heart-divider {
+            font-size: 2rem;
+            color: #ff6b6b;
+            margin: 1rem 0;
+            animation: pulse 2s infinite;
+        }
+
+        .flower-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .flower-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            opacity: 0;
+            animation: slideUp 1s ease forwards;
+            animation-delay: calc(var(--delay) * 0.5s);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .flower-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom, transparent, rgba(255, 235, 59, 0.2), transparent);
+            transform: rotate(45deg);
+            animation: shine 4s infinite;
+            pointer-events: none;
+        }
+
+        .flower-card:hover {
+            transform: translateY(-15px) rotate(2deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .flower-img {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #ffeb3b, #fbc02d);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .flower-card:hover .flower-img {
+            transform: rotate(15deg) scale(1.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .flower-name {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: #f57f17;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .flower-desc {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .flower-meaning {
+            font-style: italic;
+            color: #8d6e63;
+            border-top: 1px dashed #ffd54f;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .message-section {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(255, 248, 225, 0.8);
+            margin: 3rem auto;
+            max-width: 800px;
+            border-radius: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 4s ease;
+            position: relative;
+        }
+
+        .message-section::before, .message-section::after {
+            content: '"';
+            font-size: 4rem;
+            color: #ffd54f;
+            position: absolute;
+            opacity: 0.3;
+        }
+
+        .message-section::before {
+            top: 1rem;
+            left: 2rem;
+        }
+
+        .message-section::after {
+            bottom: 1rem;
+            right: 2rem;
+        }
+
+        .message-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: #e65100;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .message-section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .heart {
+            color: #ff6b6b;
+            font-size: 2.2rem;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+            margin: 0 0.3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .interactive-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .btn {
+            background: linear-gradient(to right, #ffeb3b, #fbc02d);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            color: #5d4037;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            background: rgba(179, 136, 11, 0.15);
+            margin-top: 4rem;
+            border-radius: 20px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+        }
+
+        footer p {
+            font-size: 1.1rem;
+        }
+
+        /* Animaciones de flores cayendo */
+        .falling-flowers {
+            position: fixed;
+            top: -50px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .falling-flower {
+            position: absolute;
+            top: -50px;
+            font-size: 2rem;
+            color: #ffd54f;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: fall linear forwards;
+            opacity: 0.7;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            20% { transform: translateX(100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* Efectos de confeti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #ffeb3b;
+            opacity: 0.7;
+            border-radius: 0;
+            z-index: 1000;
+            animation: confetti-fall 5s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .flower-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .flower-card {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .message-section {
+                padding: 2rem 1.5rem;
+            }
+            
+            .message-section h2 {
+                font-size: 1.8rem;
+            }
+            
+            .message-section p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="falling-flowers" id="fallingFlowers"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Flores Amarillas para Ti</h1>
+            <p class="subtitle">Porque eres la luz que ilumina mis días</p>
+            <div class="heart-divider">
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+                <i class="fas fa-heart"></i>
+            </div>
+        </header>
+        
+        <main>
+            <div class="flower-container">
+                <div class="flower-card" style="--delay: 1">
+                    <div class="flower-img">🌼</div>
+                    <h2 class="flower-name">Margarita</h2>
+                    <p class="flower-desc">La sencillez y pureza de tu corazón</p>
+                    <p class="flower-meaning">"Inocencia y lealtad"</p>
+                </div>
+                
+                <div class="flower-card" style="--delay: 2">
+                    <div class="flower-img">🌻</div>
+                    <h2 class="flower-name">Girasol</h2>
+                    <p class="flower-desc">Como el girasol sigue al sol, yo te sigo a ti</p>
+                    <p class="flower-meaning">"Adoración y felicidad"</p>
+                </div>
+                
+                <div class="flower-card" style="--delay: 3">
+                    <div class="flower-img">🌹</div>
+                    <h2 class="flower-name">Rosa Amarilla</h2>
+                    <p class="flower-desc">El amor que crece cada día más</p>
+                    <p class="flower-meaning">"Amistad y amor verdadero"</p>
+                </div>
+            </div>
+            
+            <div class="interactive-section">
+                <button class="btn" id="surpriseBtn">
+                    <i class="fas fa-gift"></i> Sorpresa Especial
+                </button>
+            </div>
+            
+            <div class="message-section">
+                <h2>Para Mi Amor</h2>
+                <p>El amarillo es el color del sol, de la alegría y de la felicidad. Por eso te regalo estas flores amarillas, porque tú traes todo eso a mi vida.</p>
+                <p>Cada día a tu lado es un nuevo capítulo en nuestra historia, y no puedo esperar para seguir escribiendo más páginas contigo.</p>
+                <p>Mi niña, no sabes cuando te amo de verdad, se que ahora mmismo no podemos vernos, pero eso no me va a impedir darte unas flores amarillas, asi que te programe esta pagina cielito, de verdad que te amo tanto mi vida, cuando pueda te dare unas flores de verdad</p>
+                <p>Gracias por ser exactamente como eres.</p>
+                <p>Con todo mi amor <span class="heart">❤️</span></p>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Hecho con <span class="heart">❤️</span> para ti - America Suhey Moreno Pérez</p>
+        </footer>
+    </div>
+
+    <script>
+        // Crear flores cayendo
+        function createFallingFlowers() {
+            const container = document.getElementById('fallingFlowers');
+            const flowers = ['🌼', '🌻', '🌹', '🌸', '💐'];
+            const windowWidth = window.innerWidth;
+            
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const flower = document.createElement('div');
+                    flower.classList.add('falling-flower');
+                    flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+                    
+                    const leftPos = Math.random() * windowWidth;
+                    flower.style.left = `${leftPos}px`;
+                    
+                    const duration = 5 + Math.random() * 15;
+                    const delay = Math.random() * 5;
+                    flower.style.animationDuration = `${duration}s`;
+                    flower.style.animationDelay = `${delay}s`;
+                    
+                    container.appendChild(flower);
+                    
+                    setTimeout(() => {
+                        flower.remove();
+                    }, (duration + delay) * 1000);
+                    
+                }, i * 400);
+            }
+        }
+        
+        // Efecto de escritura para el título
+        function typeWriterEffect() {
+            const title = document.querySelector('h1');
+            const originalText = title.innerText;
+            title.innerText = '';
+            
+            let i = 0;
+            const typeWriter = setInterval(() => {
+                if (i < originalText.length) {
+                    title.innerText += originalText.charAt(i);
+                    i++;
+                } else {
+                    clearInterval(typeWriter);
+                    
+                    // Mostrar subtítulo con efecto después del título
+                    const subtitle = document.querySelector('.subtitle');
+                    subtitle.style.animation = 'fadeIn 2s ease forwards';
+                }
+            }, 100);
+        }
+        
+        // Crear confeti
+        function createConfetti() {
+            const colors = ['#ffeb3b', '#ffd54f', '#ffc107', '#ffb300', '#ffa000'];
+            
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.backgroundColor = color;
+                
+                const size = 5 + Math.random() * 10;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                
+                const leftPos = Math.random() * window.innerWidth;
+                confetti.style.left = `${leftPos}px`;
+                
+                const animationDuration = 2 + Math.random() * 3;
+                confetti.style.animationDuration = `${animationDuration}s`;
+                
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, animationDuration * 1000);
+            }
+        }
+        
+        // Mensaje especial de sorpresa
+        function showSpecialMessage() {
+            const message = document.createElement('div');
+            message.style.position = 'fixed';
+            message.style.top = '50%';
+            message.style.left = '50%';
+            message.style.transform = 'translate(-50%, -50%)';
+            message.style.background = 'linear-gradient(135deg, #ffeb3b, #ffc107)';
+            message.style.padding = '2rem';
+            message.style.borderRadius = '20px';
+            message.style.zIndex = '1000';
+            message.style.textAlign = 'center';
+            message.style.boxShadow = '0 10px 30px rgba(0,0,0,0.2)';
+            message.style.maxWidth = '80%';
+            message.style.animation = 'fadeIn 0.5s ease';
+            
+            message.innerHTML = `
+                <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.5rem; margin-bottom: 1rem; color: #5d4037;">¡Para Mi Amor!</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 1.5rem;">Eres la razón por la que mi mundo está lleno de color y alegría. Te amo más de lo que las palabras pueden expresar.</p>
+                <p style="font-style: italic; font-size: 1.3rem;">¡Feliz 1 de Septiembre!</p>
+                <button id="closeMsg" style="margin-top: 1.5rem; padding: 0.8rem 1.5rem; background: #5d4037; color: white; border: none; border-radius: 50px; cursor: pointer; font-family: 'Playfair Display', serif;">Cerrar</button>
+            `;
+            
+            document.body.appendChild(message);
+            
+            document.getElementById('closeMsg').addEventListener('click', function() {
+                message.style.animation = 'fadeIn 0.5s ease reverse forwards';
+                setTimeout(() => {
+                    message.remove();
+                }, 500);
+            });
+        }
+        
+        // Iniciar cuando la página cargue
+        window.onload = function() {
+            createFallingFlowers();
+            typeWriterEffect();
+            
+            // Crear flores continuamente
+            setInterval(createFallingFlowers, 12000);
+            
+            // Configurar el botón de sorpresa
+            document.getElementById('surpriseBtn').addEventListener('click', function() {
+                createConfetti();
+                showSpecialMessage();
+                
+                // Efecto de vibración en el botón
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 300);
+            });
+        };
+    </script>
+</body>
+</html>
